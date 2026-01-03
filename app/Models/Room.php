@@ -23,7 +23,7 @@ class Room extends Model
         static::creating(function ($room) {
             if (empty($room->room_code) && $room->capacity) {
                 $prefix = 'M-' . $room->capacity;
-                
+
                 $lastRoom = static::where('room_code', 'LIKE', $prefix . '%')
                     ->orderBy('id', 'desc')
                     ->first();
