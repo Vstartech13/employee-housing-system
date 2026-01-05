@@ -11,6 +11,26 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/debug-db', function () {
+    $users = \App\Models\User::count();
+    $departments = \App\Models\Department::count();
+    $employees = \App\Models\Employee::count();
+    $rooms = \App\Models\Room::count();
+    
+    $userList = \App\Models\User::select('id', 'name', 'email')->get();
+    
+    return response()->json([
+        'database_connected' => true,
+        'counts' => [
+            'users' => $users,
+            'departments' => $departments,
+            'employees' => $employees,
+            'rooms' => $rooms,
+        ],
+        'users' => $userList,
+    ]);
+});
+
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
