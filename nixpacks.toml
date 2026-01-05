@@ -3,7 +3,7 @@ nixpkgs = ['php82', 'php82Extensions.pdo', 'php82Extensions.pdo_mysql', 'php82Ex
 
 [phases.install]
 cmds = [
-    'composer install --no-dev --optimize-autoloader --no-interaction'
+    'composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs'
 ]
 
 [phases.build]
