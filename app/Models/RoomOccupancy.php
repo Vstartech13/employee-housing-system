@@ -78,7 +78,7 @@ class RoomOccupancy extends Model
             'room_occupancy_id' => $this->id,
             'room_id' => $this->room_id,
             'employee_id' => $this->employee_id,
-            'is_guest' => $this->is_guest,
+            'is_guest' => (bool) $this->is_guest,
             'guest_name' => $this->guest_name,
             'occupant_name' => $name,
             'action' => $action,
