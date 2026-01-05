@@ -31,6 +31,30 @@ Route::get('/debug-db', function () {
     ]);
 });
 
+Route::get('/run-seeders', function () {
+    try {
+        \Artisan::call('db:seed', ['--force' => true]);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Seeders berhasil dijalankan!',
+            'output' => \Artisan::output(),
+            'counts' => [
+                'users' => \App\Models\User::count(),
+                'departments' => \App\Models\Department::count(),
+                'employees' => \App\Models\Employee::count(),
+                'rooms' => \App\Models\Room::count(),
+            ]
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ], 500);
+    }
+});
+
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
