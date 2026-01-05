@@ -16,4 +16,4 @@ cmds = [
 ]
 
 [start]
-cmd = 'php artisan migrate --force && php artisan db:seed --class=DefaultUserSeeder --force && vendor/bin/heroku-php-apache2 public/'
+cmd = 'php artisan migrate --force && php artisan db:seed --force && vendor/bin/heroku-php-apache2 public/'
