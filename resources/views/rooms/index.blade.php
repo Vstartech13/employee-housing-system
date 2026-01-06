@@ -311,6 +311,16 @@
                         at: 'center',
                         of: window
                     },
+                    onShowing: function(e) {
+                        // Reset form data to default state
+                        formData.room_id = null;
+                        formData.is_guest = false;
+                        formData.employee_id = null;
+                        formData.guest_name = null;
+                        formData.guest_purpose = null;
+                        formData.guest_duration_days = null;
+                        formData.check_in_date = new Date();
+                    },
                     contentTemplate: function(contentElement) {
                         console.log("contentTemplate called, contentElement:", contentElement);
                         const $form = $("<div>").appendTo(contentElement);
@@ -369,14 +379,29 @@
                                                     form.itemOption("guest_purpose", "visible", isGuest);
                                                     form.itemOption("guest_duration_days", "visible", isGuest);
 
-                                                    // Clear values when switching
+                                                    // Update validation rules based on visibility
                                                     if (isGuest) {
+                                                        // Tamu selected: disable employee validation, enable guest validations
+                                                        form.itemOption("employee_id", "validationRules", []);
+                                                        form.itemOption("guest_name", "validationRules", [{ type: "required", message: "Nama tamu harus diisi" }]);
+                                                        form.itemOption("guest_purpose", "validationRules", [{ type: "required", message: "Keperluan harus diisi" }]);
+                                                        form.itemOption("guest_duration_days", "validationRules", [{ type: "required", message: "Durasi menginap harus diisi" }]);
+                                                        
                                                         formData.employee_id = null;
                                                     } else {
+                                                        // Karyawan selected: enable employee validation, disable guest validations
+                                                        form.itemOption("employee_id", "validationRules", [{ type: "required", message: "Karyawan harus dipilih" }]);
+                                                        form.itemOption("guest_name", "validationRules", []);
+                                                        form.itemOption("guest_purpose", "validationRules", []);
+                                                        form.itemOption("guest_duration_days", "validationRules", []);
+                                                        
                                                         formData.guest_name = null;
                                                         formData.guest_purpose = null;
                                                         formData.guest_duration_days = null;
                                                     }
+
+                                                    // Revalidate form
+                                                    form.validate();
                                                 }
                                             },
                                             validationRules: [{ type: "required" }]
@@ -403,7 +428,12 @@
                                                 dropDownOptions: {
                                                     container: contentElement
                                                 }
-                                            }
+                                            },
+                                            validationRules: [{
+                                                type: "required",
+                                                message: "Karyawan harus dipilih",
+                                                reevaluate: true
+                                            }]
                                         },
                                         {
                                             dataField: "guest_name",
@@ -411,7 +441,12 @@
                                             visible: false,
                                             editorOptions: {
                                                 placeholder: "Masukkan nama tamu"
-                                            }
+                                            },
+                                            validationRules: [{
+                                                type: "required",
+                                                message: "Nama tamu harus diisi",
+                                                reevaluate: true
+                                            }]
                                         },
                                         {
                                             dataField: "guest_purpose",
@@ -419,7 +454,12 @@
                                             visible: false,
                                             editorOptions: {
                                                 placeholder: "Masukkan keperluan tamu"
-                                            }
+                                            },
+                                            validationRules: [{
+                                                type: "required",
+                                                message: "Keperluan harus diisi",
+                                                reevaluate: true
+                                            }]
                                         },
                                         {
                                             dataField: "guest_duration_days",
@@ -430,7 +470,12 @@
                                                 min: 1,
                                                 max: 90,
                                                 placeholder: "Masukkan durasi dalam hari (max 90)"
-                                            }
+                                            },
+                                            validationRules: [{
+                                                type: "required",
+                                                message: "Durasi menginap harus diisi",
+                                                reevaluate: true
+                                            }]
                                         },
                                         {
                                             dataField: "check_in_date",
