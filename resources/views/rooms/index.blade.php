@@ -385,7 +385,7 @@
                                                     const isGuest = e.value;
 
                                                     console.log("Tipe penghuni changed to:", isGuest ? "Tamu" : "Karyawan");
-                                                    
+
                                                     // Update formData
                                                     formData.is_guest = isGuest;
 
@@ -402,7 +402,7 @@
                                                         form.itemOption("guest_name", "validationRules", [{ type: "required", message: "Nama tamu harus diisi" }]);
                                                         form.itemOption("guest_purpose", "validationRules", [{ type: "required", message: "Keperluan harus diisi" }]);
                                                         form.itemOption("guest_duration_days", "validationRules", [{ type: "required", message: "Durasi menginap harus diisi" }]);
-                                                        
+
                                                         formData.employee_id = null;
                                                     } else {
                                                         // Karyawan selected: enable employee validation, disable guest validations
@@ -410,7 +410,7 @@
                                                         form.itemOption("guest_name", "validationRules", []);
                                                         form.itemOption("guest_purpose", "validationRules", []);
                                                         form.itemOption("guest_duration_days", "validationRules", []);
-                                                        
+
                                                         formData.guest_name = null;
                                                         formData.guest_purpose = null;
                                                         formData.guest_duration_days = null;
@@ -419,8 +419,7 @@
                                                     // Revalidate form
                                                     form.validate();
                                                 }
-                                            },
-                                            validationRules: [{ type: "required" }]
+                                            }
                                         },
                                         {
                                             dataField: "employee_id",
