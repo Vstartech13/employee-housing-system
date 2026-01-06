@@ -321,6 +321,19 @@
                         formData.guest_duration_days = null;
                         formData.check_in_date = new Date();
                     },
+                    onShown: function(e) {
+                        // Ensure form is in correct initial state after rendering
+                        setTimeout(function() {
+                            const form = $form.dxForm("instance");
+                            if (form) {
+                                form.itemOption("employee_id", "visible", true);
+                                form.itemOption("guest_name", "visible", false);
+                                form.itemOption("guest_purpose", "visible", false);
+                                form.itemOption("guest_duration_days", "visible", false);
+                                form.repaint();
+                            }
+                        }, 100);
+                    },
                     contentTemplate: function(contentElement) {
                         console.log("contentTemplate called, contentElement:", contentElement);
                         const $form = $("<div>").appendTo(contentElement);
@@ -363,7 +376,7 @@
                                                 ],
                                                 displayExpr: "text",
                                                 valueExpr: "value",
-                                                value: false,
+                                                searchEnabled: false,
                                                 dropDownOptions: {
                                                     container: contentElement
                                                 },
@@ -372,6 +385,9 @@
                                                     const isGuest = e.value;
 
                                                     console.log("Tipe penghuni changed to:", isGuest ? "Tamu" : "Karyawan");
+                                                    
+                                                    // Update formData
+                                                    formData.is_guest = isGuest;
 
                                                     // Show/hide fields based on selection
                                                     form.itemOption("employee_id", "visible", !isGuest);
