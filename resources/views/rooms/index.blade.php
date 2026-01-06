@@ -431,8 +431,7 @@
                                             },
                                             validationRules: [{
                                                 type: "required",
-                                                message: "Karyawan harus dipilih",
-                                                reevaluate: true
+                                                message: "Karyawan harus dipilih"
                                             }]
                                         },
                                         {
@@ -441,12 +440,7 @@
                                             visible: false,
                                             editorOptions: {
                                                 placeholder: "Masukkan nama tamu"
-                                            },
-                                            validationRules: [{
-                                                type: "required",
-                                                message: "Nama tamu harus diisi",
-                                                reevaluate: true
-                                            }]
+                                            }
                                         },
                                         {
                                             dataField: "guest_purpose",
@@ -454,12 +448,7 @@
                                             visible: false,
                                             editorOptions: {
                                                 placeholder: "Masukkan keperluan tamu"
-                                            },
-                                            validationRules: [{
-                                                type: "required",
-                                                message: "Keperluan harus diisi",
-                                                reevaluate: true
-                                            }]
+                                            }
                                         },
                                         {
                                             dataField: "guest_duration_days",
@@ -470,12 +459,7 @@
                                                 min: 1,
                                                 max: 90,
                                                 placeholder: "Masukkan durasi dalam hari (max 90)"
-                                            },
-                                            validationRules: [{
-                                                type: "required",
-                                                message: "Durasi menginap harus diisi",
-                                                reevaluate: true
-                                            }]
+                                            }
                                         },
                                         {
                                             dataField: "check_in_date",
